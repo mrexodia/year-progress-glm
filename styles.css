@@ -195,7 +195,7 @@ body.no-scroll {
 .year-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 4px 3px;
+    gap: 6px 4px;
     padding: 4px;
     justify-items: center;
 }
@@ -204,7 +204,7 @@ body.no-scroll {
     grid-column: 1 / -1;
     height: 1px;
     background: linear-gradient(to right, transparent, var(--border-color) 10%, var(--border-color) 90%, transparent);
-    margin: 4px 0;
+    margin: 2px 0;
 }
 
 .month-label-inline {
@@ -213,13 +213,13 @@ body.no-scroll {
     font-weight: 600;
     color: var(--text-light);
     text-align: center;
-    margin-top: 8px;
-    padding: 4px 0;
+    margin-top: 4px;
+    padding: 2px 0;
 }
 
 .day-dot {
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     background: var(--dot-empty);
     cursor: pointer;
@@ -248,7 +248,7 @@ body.no-scroll {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1;
 }
 
@@ -665,16 +665,16 @@ body.no-scroll {
     }
 
     .year-grid {
-        gap: 5px 4px;
+        gap: 5px 3px;
     }
 
     .day-dot {
-        width: 12px;
-        height: 12px;
+        width: 16px;
+        height: 16px;
     }
 
     .day-dot.marked::after {
-        font-size: 9px;
+        font-size: 12px;
     }
 
     .settings-panel {
