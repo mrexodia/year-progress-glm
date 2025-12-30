@@ -265,6 +265,12 @@
             dot.className = 'day-dot';
             dot.dataset.day = day;
 
+            // Add weekend class for Saturday (6) and Sunday (0)
+            const dayOfWeek = date.getDay();
+            if (dayOfWeek === 0 || dayOfWeek === 6) {
+                dot.classList.add('weekend');
+            }
+
             const dateKey = getDateKey(day);
 
             if (day < state.today) {
