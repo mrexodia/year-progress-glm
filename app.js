@@ -355,17 +355,12 @@
         // Render emoji options
         renderEmojiOptions(mark.emoji);
 
-        // Prevent body scroll and save position
-        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        // Save scroll position
+        const scrollY = window.scrollY;
         document.body.dataset.scrollY = scrollY.toString();
 
-        // Use requestAnimationFrame to ensure smooth transition
-        requestAnimationFrame(() => {
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${scrollY}px`;
-            document.body.style.width = '100vw';
-            document.body.style.overflow = 'hidden';
-        });
+        // Lock scroll
+        document.body.classList.add('no-scroll');
 
         // Show popup
         elements.popupOverlay.classList.add('active');
@@ -373,22 +368,18 @@
     }
 
     function closeDayPopup() {
-        const scrollY = parseInt(document.body.dataset.scrollY || '0');
-
         // Hide popup
         elements.popupOverlay.classList.remove('active');
         elements.popup.classList.remove('active');
 
-        // Use requestAnimationFrame for smooth restoration
-        requestAnimationFrame(() => {
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-            document.body.style.overflow = '';
+        // Unlock scroll
+        document.body.classList.remove('no-scroll');
 
-            // Restore scroll
+        // Restore scroll position
+        const scrollY = parseInt(document.body.dataset.scrollY || '0');
+        if (scrollY > 0) {
             window.scrollTo(0, scrollY);
-        });
+        }
 
         state.currentDay = null;
     }
