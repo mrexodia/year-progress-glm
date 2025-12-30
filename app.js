@@ -407,6 +407,9 @@
         document.body.style.width = '100%';
         document.body.style.overflow = 'hidden';
 
+        // Re-apply theme color (it gets reset when body position changes)
+        applyTheme(state.theme);
+
         // Show popup
         elements.popupOverlay.classList.add('active');
         elements.popup.classList.add('active');
