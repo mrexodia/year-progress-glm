@@ -186,40 +186,52 @@ body.no-scroll {
 
 /* ===== Year Grid ===== */
 .grid-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin: 0 -16px;
-    padding: 0 16px;
+    padding: 0;
 }
 
 .year-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px 4px;
-    padding: 4px;
-    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 4px 16px;
 }
 
-.month-break {
-    grid-column: 1 / -1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--border-color) 10%, var(--border-color) 90%, transparent);
-    margin: 2px 0;
+.month-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.month-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .month-label-inline {
-    grid-column: 1 / -1;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
     color: var(--text-light);
-    text-align: center;
-    margin-top: 4px;
-    padding: 2px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.month-break {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border-color), transparent);
+}
+
+.month-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(28px, 1fr));
+    gap: 8px;
+    justify-items: center;
 }
 
 .day-dot {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: var(--dot-empty);
     cursor: pointer;
@@ -248,7 +260,7 @@ body.no-scroll {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1;
 }
 
@@ -664,17 +676,18 @@ body.no-scroll {
         font-size: 16px;
     }
 
-    .year-grid {
-        gap: 5px 3px;
+    .month-grid {
+        grid-template-columns: repeat(auto-fill, minmax(22px, 1fr));
+        gap: 6px;
     }
 
     .day-dot {
-        width: 16px;
-        height: 16px;
+        width: 22px;
+        height: 22px;
     }
 
     .day-dot.marked::after {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .settings-panel {

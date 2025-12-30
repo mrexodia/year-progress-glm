@@ -224,28 +224,39 @@
         updateProgress();
 
         let currentMonth = -1;
-        let dayOfWeek = 0; // 0 = Sunday, 6 = Saturday
+        let monthSection = null;
+        let monthGrid = null;
 
         for (let day = 1; day <= state.daysInYear; day++) {
             const date = new Date(state.year, 0, day);
             const month = date.getMonth();
-            dayOfWeek = date.getDay();
 
-            // Add month label and divider at the start of each month
+            // Create new month section
             if (month !== currentMonth) {
-                if (currentMonth !== -1) {
-                    // Add a subtle divider before new month (except first month)
-                    const divider = document.createElement('div');
-                    divider.className = 'month-break';
-                    grid.appendChild(divider);
-                }
+                monthSection = document.createElement('div');
+                monthSection.className = 'month-section';
 
-                // Add month label
+                // Create month header
+                const monthHeader = document.createElement('div');
+                monthHeader.className = 'month-header';
+
                 const monthLabel = document.createElement('div');
                 monthLabel.className = 'month-label-inline';
                 monthLabel.textContent = date.toLocaleDateString('en-US', { month: 'long' });
-                grid.appendChild(monthLabel);
+                monthHeader.appendChild(monthLabel);
 
+                const monthBreak = document.createElement('div');
+                monthBreak.className = 'month-break';
+                monthHeader.appendChild(monthBreak);
+
+                monthSection.appendChild(monthHeader);
+
+                // Create month grid
+                monthGrid = document.createElement('div');
+                monthGrid.className = 'month-grid';
+                monthSection.appendChild(monthGrid);
+
+                grid.appendChild(monthSection);
                 currentMonth = month;
             }
 
@@ -278,7 +289,7 @@
             }
 
             dot.addEventListener('click', () => openDayPopup(day));
-            grid.appendChild(dot);
+            monthGrid.appendChild(dot);
         }
 
         updateEmptyState();
