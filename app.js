@@ -12,8 +12,11 @@
         theme: 'lavender',
         currentDay: null,
         selectedYear: new Date().getFullYear(),
-        customEmojis: '' // User's custom emojis
+        customEmojis: '' // User's custom emojis (empty = use defaults)
     };
+
+    // Default emoji set
+    const defaultEmojis = '❤️ 😊 ⭐ 🎉 😢 🌟 💪 🌸 ☀️ 🌙 ✨ 🎂 🏖️ ❄️ 🍂';
 
     // ===== Themes =====
     const themes = {
@@ -436,11 +439,11 @@
     }
 
     function getEmojis() {
-        // Use custom emojis if available, otherwise use defaults
+        // Use custom emojis if set, otherwise use defaults
         if (state.customEmojis && state.customEmojis.trim()) {
             return state.customEmojis.trim().split(/\s+/).filter(e => e.length > 0);
         }
-        return emojis;
+        return defaultEmojis.split(/\s+/).filter(e => e.length > 0);
     }
 
     function renderEmojiOptions(selectedEmoji) {
@@ -567,8 +570,19 @@
         renderThemeOptions();
         renderYearButtons();
 
-        // Set custom emoji input value
-        elements.emojiInput.value = state.customEmojis || '';
+        // Set custom emoji input value - show defaults if empty
+        elements.emojiInput.value = state.customEmojis || defaultEmojis;
+    }
+
+    function closeSettings() {
+        // If emoji input is empty, reset to defaults
+        if (!elements.emojiInput.value.trim()) {
+            state.customEmojis = '';
+            saveState();
+        }
+
+        elements.settingsOverlay.classList.remove('active');
+        elements.settingsPanel.classList.remove('active');
     }
 
     function renderYearButtons() {
