@@ -4,8 +4,8 @@
     "description": "A beautiful year progress tracker — mark your days with colors and emojis",
     "start_url": "./",
     "display": "standalone",
-    "background_color": "#FFF8F0",
-    "theme_color": "#FFF8F0",
+    "background_color": "#F8F4FF",
+    "theme_color": "#F8F4FF",
     "orientation": "portrait",
     "scope": "./",
     "icons": [
