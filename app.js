@@ -63,11 +63,13 @@
 
     function formatDate(dayOfYear) {
         const date = new Date(state.year, 0, dayOfYear);
-        return date.toLocaleDateString('en-US', { 
-            month: 'long', 
+        const weekday = date.toLocaleDateString('en-US', { weekday: 'long' });
+        const dateStr = date.toLocaleDateString('en-US', {
+            month: 'long',
             day: 'numeric',
             year: 'numeric'
         });
+        return `${weekday}, ${dateStr}`;
     }
 
     function getDateKey(dayOfYear) {
