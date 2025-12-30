@@ -184,20 +184,31 @@
     function applyTheme(themeName) {
         document.body.setAttribute('data-theme', themeName === 'sakura' ? '' : themeName);
         state.theme = themeName;
-        
+
         // Update theme picker UI
         document.querySelectorAll('.theme-option').forEach(el => {
             el.classList.toggle('selected', el.dataset.theme === themeName);
         });
-        
-        // Update meta theme color
+
+        // Update meta theme color for PWA
         const themeColors = {
             sakura: '#FFF8F0',
             mint: '#F0FFF4',
             lavender: '#F8F4FF',
             honey: '#FFFBF0'
         };
-        document.querySelector('meta[name="theme-color"]').setAttribute('content', themeColors[themeName]);
+        const themeColor = themeColors[themeName];
+
+        // Update all theme color meta tags
+        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeColorMeta) {
+            themeColorMeta.setAttribute('content', themeColor);
+        }
+
+        const appleStatusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+        if (appleStatusBarMeta) {
+            appleStatusBarMeta.setAttribute('content', themeColor);
+        }
     }
 
     function renderThemeOptions() {
