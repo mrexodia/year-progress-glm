@@ -224,31 +224,28 @@
         updateProgress();
 
         let currentMonth = -1;
-        let monthRow = null;
-        let daysRow = null;
+        let dayOfWeek = 0; // 0 = Sunday, 6 = Saturday
 
         for (let day = 1; day <= state.daysInYear; day++) {
             const date = new Date(state.year, 0, day);
             const month = date.getMonth();
+            dayOfWeek = date.getDay();
 
-            // Create new column for each month
+            // Add month label and divider at the start of each month
             if (month !== currentMonth) {
-                // Create month column container
-                monthRow = document.createElement('div');
-                monthRow.className = 'month-row';
+                if (currentMonth !== -1) {
+                    // Add a subtle divider before new month (except first month)
+                    const divider = document.createElement('div');
+                    divider.className = 'month-break';
+                    grid.appendChild(divider);
+                }
 
-                // Add month label on top
+                // Add month label
                 const monthLabel = document.createElement('div');
-                monthLabel.className = 'month-label';
-                monthLabel.textContent = date.toLocaleDateString('en-US', { month: 'short' });
-                monthRow.appendChild(monthLabel);
+                monthLabel.className = 'month-label-inline';
+                monthLabel.textContent = date.toLocaleDateString('en-US', { month: 'long' });
+                grid.appendChild(monthLabel);
 
-                // Create days column
-                daysRow = document.createElement('div');
-                daysRow.className = 'days-row';
-                monthRow.appendChild(daysRow);
-
-                grid.appendChild(monthRow);
                 currentMonth = month;
             }
 
@@ -281,7 +278,7 @@
             }
 
             dot.addEventListener('click', () => openDayPopup(day));
-            daysRow.appendChild(dot);
+            grid.appendChild(dot);
         }
 
         updateEmptyState();
