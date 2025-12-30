@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Year">
+    <meta name="theme-color" content="#FFF8F0">
+    <meta name="description" content="A beautiful year progress tracker — mark your days with colors and emojis">
+    <title>Year Progress</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <link rel="icon" type="image/png" href="icons/favicon.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <h1 class="year-title" id="yearTitle">2026</h1>
+                <button class="settings-btn" id="settingsBtn" aria-label="Settings">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6m0 6v6M1 12h6m6 0h6M4.9 4.9l4.2 4.2m5.6 5.6l4.2 4.2M4.9 19.1l4.2-4.2m5.6-5.6l4.2-4.2"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="progress-text" id="progressText">Loading...</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </header>
+
+        <!-- Year Grid -->
+        <main class="grid-container">
+            <div class="year-grid" id="yearGrid"></div>
+        </main>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <p class="empty-state-text">✨ Tap any day to mark it</p>
+        </div>
+    </div>
+
+    <!-- Marking Popup -->
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="popup" id="dayPopup">
+        <div class="popup-header">
+            <h2 class="popup-date" id="popupDate">January 1</h2>
+            <button class="popup-close" id="popupClose" aria-label="Close">✕</button>
+        </div>
+        
+        <div class="popup-section">
+            <h3 class="popup-section-title">Color</h3>
+            <div class="color-options" id="colorOptions"></div>
+        </div>
+
+        <div class="popup-section">
+            <h3 class="popup-section-title">Emoji</h3>
+            <div class="emoji-options" id="emojiOptions"></div>
+        </div>
+
+        <div class="popup-section">
+            <div class="note-header">
+                <h3 class="popup-section-title">Note</h3>
+                <span class="note-indicator" id="hasNoteIndicator" style="display: none;">📝</span>
+            </div>
+            <textarea 
+                class="note-input" 
+                id="noteInput" 
+                placeholder="Add a note..."
+                maxlength="280"
+                rows="3"
+            ></textarea>
+        </div>
+
+        <div class="popup-actions">
+            <button class="btn btn-secondary" id="clearBtn">Clear</button>
+            <button class="btn btn-primary" id="saveBtn">Save</button>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div class="settings-overlay" id="settingsOverlay"></div>
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <h2>Settings</h2>
+            <button class="popup-close" id="settingsClose" aria-label="Close">✕</button>
+        </div>
+
+        <div class="settings-section">
+            <h3>Theme</h3>
+            <div class="theme-options" id="themeOptions"></div>
+        </div>
+
+        <div class="settings-section">
+            <h3>Data</h3>
+            <button class="btn btn-secondary" id="exportBtn">⬇ Download Backup</button>
+            <button class="btn btn-secondary" id="importBtn">⬆ Restore Backup</button>
+            <input type="file" id="importFile" accept=".json" style="display: none;">
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

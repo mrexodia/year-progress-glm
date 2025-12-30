@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head><title>Icon Generator</title></head>
+<body>
+<h3>Open this file in a browser, then take screenshots of the canvas below at different sizes:</h3>
+<canvas id="c" width="512" height="512"></canvas>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+
+// Background
+ctx.fillStyle = '#FFB7C5';
+ctx.fillRect(0, 0, 512, 512);
+
+// Soft gradient circle
+const gradient = ctx.createRadialGradient(256, 256, 50, 256, 256, 200);
+gradient.addColorStop(0, '#FFCCB3');
+gradient.addColorStop(1, '#FFB7C5');
+ctx.fillStyle = gradient;
+ctx.beginPath();
+ctx.arc(256, 256, 180, 0, Math.PI * 2);
+ctx.fill();
+
+// Calendar grid dots
+const dotSize = 24;
+const spacing = 40;
+const startX = 100;
+const startY = 120;
+
+for (let row = 0; row < 7; row++) {
+    for (let col = 0; col < 8; col++) {
+        const x = startX + col * spacing;
+        const y = startY + row * spacing;
+        
+        // Alternate filled/empty for visual interest
+        if ((row + col) % 3 === 0) {
+            ctx.fillStyle = '#FFF8F0';
+        } else {
+            ctx.fillStyle = 'rgba(255, 248, 240, 0.5)';
+        }
+        
+        ctx.beginPath();
+        ctx.arc(x, y, dotSize / 2, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+// Year text
+ctx.fillStyle = '#FFF8F0';
+ctx.font = 'bold 72px -apple-system, sans-serif';
+ctx.textAlign = 'center';
+ctx.fillText('2026', 256, 400);
+
+// Small dots below
+for (let i = 0; i < 5; i++) {
+    ctx.fillStyle = 'rgba(255, 248, 240, 0.6)';
+    ctx.beginPath();
+    ctx.arc(196 + i * 30, 440, 6, 0, Math.PI * 2);
+    ctx.fill();
+}
+</script>
+</body>
+</html>
