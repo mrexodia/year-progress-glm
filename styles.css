@@ -270,6 +270,10 @@ body.no-scroll {
     background: var(--marked-color, var(--primary-color));
 }
 
+.day-dot.marked.weekend {
+    background: var(--marked-color, var(--primary-color));
+}
+
 .day-dot.marked::after {
     content: var(--marked-emoji, '');
     position: absolute;

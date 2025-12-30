@@ -378,8 +378,15 @@
             option.style.background = color;
             option.dataset.color = color;
             option.addEventListener('click', () => {
-                container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
-                option.classList.add('selected');
+                const isSelected = option.classList.contains('selected');
+                if (isSelected) {
+                    // Deselect if already selected
+                    option.classList.remove('selected');
+                } else {
+                    // Clear all selections and select this one
+                    container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
+                    option.classList.add('selected');
+                }
                 instantSave();
             });
             container.appendChild(option);
@@ -396,8 +403,15 @@
             option.textContent = emoji;
             option.dataset.emoji = emoji;
             option.addEventListener('click', () => {
-                container.querySelectorAll('.emoji-option').forEach(el => el.classList.remove('selected'));
-                option.classList.add('selected');
+                const isSelected = option.classList.contains('selected');
+                if (isSelected) {
+                    // Deselect if already selected
+                    option.classList.remove('selected');
+                } else {
+                    // Clear all selections and select this one
+                    container.querySelectorAll('.emoji-option').forEach(el => el.classList.remove('selected'));
+                    option.classList.add('selected');
+                }
                 instantSave();
             });
             container.appendChild(option);
@@ -463,6 +477,8 @@
         }
     }
 
+    // Note: clearMark is no longer needed since tapping again clears selection
+    // Kept for reference but not used
     function clearMark() {
         if (!state.currentDay) return;
 
@@ -526,7 +542,6 @@
             emojiOptions: document.getElementById('emojiOptions'),
             noteInput: document.getElementById('noteInput'),
             hasNoteIndicator: document.getElementById('hasNoteIndicator'),
-            clearBtn: document.getElementById('clearBtn'),
             settingsBtn: document.getElementById('settingsBtn'),
             settingsOverlay: document.getElementById('settingsOverlay'),
             settingsPanel: document.getElementById('settingsPanel'),
