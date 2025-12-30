@@ -552,22 +552,27 @@
         elements.settingsOverlay.classList.add('active');
         elements.settingsPanel.classList.add('active');
         renderThemeOptions();
-        renderYearOptions();
-
-        // Set current year in dropdown
-        elements.yearSelect.value = state.selectedYear.toString();
+        renderYearButtons();
     }
 
-    function renderYearOptions() {
+    function renderYearButtons() {
         const currentYear = new Date().getFullYear();
-        elements.yearSelect.innerHTML = '';
+        elements.yearButtons.innerHTML = '';
 
-        // Add current year and a few past years
-        for (let year = currentYear; year >= currentYear - 5; year--) {
-            const option = document.createElement('option');
-            option.value = year.toString();
-            option.textContent = year.toString();
-            elements.yearSelect.appendChild(option);
+        // Add current year and two past years
+        for (let i = 0; i < 3; i++) {
+            const year = currentYear - i;
+            const button = document.createElement('button');
+            button.className = `year-button ${state.selectedYear === year ? 'active' : ''}`;
+            button.textContent = year.toString();
+            button.dataset.year = year;
+            button.addEventListener('click', () => {
+                state.selectedYear = year;
+                saveState();
+                renderGrid();
+                renderYearButtons(); // Re-render to update active state
+            });
+            elements.yearButtons.appendChild(button);
         }
     }
 
@@ -598,7 +603,7 @@
             settingsPanel: document.getElementById('settingsPanel'),
             settingsClose: document.getElementById('settingsClose'),
             themeOptions: document.getElementById('themeOptions'),
-            yearSelect: document.getElementById('yearSelect'),
+            yearButtons: document.getElementById('yearButtons'),
             exportBtn: document.getElementById('exportBtn'),
             importBtn: document.getElementById('importBtn'),
             importFile: document.getElementById('importFile')
@@ -633,12 +638,7 @@
             }
         });
 
-        // Year selector
-        elements.yearSelect.addEventListener('change', (e) => {
-            state.selectedYear = parseInt(e.target.value);
-            saveState();
-            renderGrid();
-        });
+        // Year selector is now handled by button clicks in renderYearButtons
 
         // Handle viewport resize (keyboard open/close)
         if (window.visualViewport) {

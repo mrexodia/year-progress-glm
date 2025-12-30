@@ -605,8 +605,13 @@ body.no-scroll {
     letter-spacing: 0.05em;
 }
 
-.year-select {
-    width: 100%;
+.year-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.year-button {
+    flex: 1;
     padding: 12px 16px;
     border: 2px solid var(--border-color);
     border-radius: 12px;
@@ -616,12 +621,17 @@ body.no-scroll {
     color: var(--text-color);
     background: var(--bg-color);
     cursor: pointer;
-    transition: border-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-.year-select:focus {
-    outline: none;
+.year-button.active {
+    background: var(--primary-color);
     border-color: var(--primary-color);
+    color: var(--btn-primary-text);
+}
+
+.year-button:active {
+    transform: scale(0.98);
 }
 
 .theme-options {
