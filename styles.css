@@ -695,6 +695,7 @@ body.no-scroll {
 
 .import-export-buttons .btn {
     flex: 1;
+    min-width: 0;
 }
 
 .emoji-input {
