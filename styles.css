@@ -193,16 +193,48 @@ body.no-scroll {
 }
 
 .year-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 4px 0;
+}
+
+.month-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 0;
+}
+
+.month-label {
+    width: 38px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-light);
+    text-align: right;
+    flex-shrink: 0;
+    padding-right: 4px;
+}
+
+.month-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border-color);
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+
+.days-row {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 6px 4px;
-    padding: 4px;
-    justify-items: center;
+    gap: 4px 3px;
+    flex: 1;
+    min-width: 0;
 }
 
 .day-dot {
-    width: 11px;
-    height: 11px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: var(--dot-empty);
     cursor: pointer;
@@ -647,14 +679,18 @@ body.no-scroll {
         font-size: 16px;
     }
 
-    .year-grid {
-        grid-template-columns: repeat(7, 1fr);
-        gap: 5px 3px;
+    .days-row {
+        gap: 3px 2px;
     }
 
     .day-dot {
-        width: 10px;
-        height: 10px;
+        width: 9px;
+        height: 9px;
+    }
+
+    .month-label {
+        width: 32px;
+        font-size: 10px;
     }
 
     .settings-panel {

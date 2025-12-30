@@ -224,27 +224,40 @@
         updateProgress();
 
         let currentMonth = -1;
+        let monthRow = null;
+        let daysRow = null;
 
         for (let day = 1; day <= state.daysInYear; day++) {
             const date = new Date(state.year, 0, day);
             const month = date.getMonth();
 
-            // Add month label at the start of each month
+            // Create new row for each month
             if (month !== currentMonth) {
+                // Create month row container
+                monthRow = document.createElement('div');
+                monthRow.className = 'month-row';
+
+                // Add month label
                 const monthLabel = document.createElement('div');
                 monthLabel.className = 'month-label';
                 monthLabel.textContent = date.toLocaleDateString('en-US', { month: 'short' });
-                monthLabel.style.gridColumn = '1 / -1';
-                monthLabel.style.textAlign = 'left';
-                monthLabel.style.fontSize = '12px';
-                monthLabel.style.fontWeight = '600';
-                monthLabel.style.color = 'var(--text-light)';
-                monthLabel.style.marginTop = day > 1 ? '8px' : '0';
-                monthLabel.style.padding = '4px 0';
-                grid.appendChild(monthLabel);
+                monthRow.appendChild(monthLabel);
+
+                // Add divider
+                const divider = document.createElement('div');
+                divider.className = 'month-divider';
+                monthRow.appendChild(divider);
+
+                // Create days row
+                daysRow = document.createElement('div');
+                daysRow.className = 'days-row';
+                monthRow.appendChild(daysRow);
+
+                grid.appendChild(monthRow);
                 currentMonth = month;
             }
 
+            // Create day dot
             const dot = document.createElement('div');
             dot.className = 'day-dot';
             dot.dataset.day = day;
@@ -273,7 +286,7 @@
             }
 
             dot.addEventListener('click', () => openDayPopup(day));
-            grid.appendChild(dot);
+            daysRow.appendChild(dot);
         }
 
         updateEmptyState();
