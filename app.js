@@ -351,20 +351,29 @@
 
         // Render color options
         renderColorOptions(mark.color);
-        
+
         // Render emoji options
         renderEmojiOptions(mark.emoji);
+
+        // Prevent body scroll and save scroll position
+        document.body.style.top = `-${window.scrollY}px`;
+        document.body.classList.add('no-scroll');
 
         // Show popup
         elements.popupOverlay.classList.add('active');
         elements.popup.classList.add('active');
-        document.body.classList.add('no-scroll');
     }
 
     function closeDayPopup() {
+        const scrollY = document.body.style.top;
         elements.popupOverlay.classList.remove('active');
         elements.popup.classList.remove('active');
         document.body.classList.remove('no-scroll');
+        document.body.style.top = '';
+
+        // Restore scroll position
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+
         state.currentDay = null;
     }
 
