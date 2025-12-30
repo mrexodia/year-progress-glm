@@ -365,6 +365,11 @@
         // Show popup
         elements.popupOverlay.classList.add('active');
         elements.popup.classList.add('active');
+
+        // Ensure popup stays in view when keyboard appears/disappears
+        setTimeout(() => {
+            elements.popup.scrollTop = 0;
+        }, 100);
     }
 
     function closeDayPopup() {
@@ -380,6 +385,14 @@
         window.scrollTo(0, scrollY);
 
         state.currentDay = null;
+    }
+
+    function handleViewportResize() {
+        // When keyboard opens/closes, ensure popup stays at bottom
+        if (elements.popup.classList.contains('active')) {
+            elements.popup.style.top = 'auto';
+            elements.popup.style.transform = elements.popup.classList.contains('active') ? 'translateY(0)' : 'translateY(100%)';
+        }
     }
 
     function renderColorOptions(selectedColor) {
@@ -616,6 +629,10 @@
             saveState();
             renderGrid();
         });
+
+        // Handle viewport resize (keyboard open/close)
+        window.addEventListener('resize', handleViewportResize);
+        window.addEventListener('orientationchange', handleViewportResize);
 
         // Update progress every minute
         setInterval(() => {
