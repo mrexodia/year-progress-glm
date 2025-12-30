@@ -209,6 +209,9 @@
         if (appleStatusBarMeta) {
             appleStatusBarMeta.setAttribute('content', themeColor);
         }
+
+        // Also set on html element to persist through scroll lock
+        document.documentElement.style.backgroundColor = themeColor;
     }
 
     function renderThemeOptions() {
@@ -406,9 +409,6 @@
         document.body.style.top = `-${scrollY}px`;
         document.body.style.width = '100%';
         document.body.style.overflow = 'hidden';
-
-        // Re-apply theme color (it gets reset when body position changes)
-        applyTheme(state.theme);
 
         // Show popup
         elements.popupOverlay.classList.add('active');
