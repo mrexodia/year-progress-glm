@@ -355,15 +355,17 @@
         // Render emoji options
         renderEmojiOptions(mark.emoji);
 
-        // Prevent body scroll - save scroll position BEFORE making changes
-        const scrollY = window.scrollY;
+        // Prevent body scroll and save position
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
         document.body.dataset.scrollY = scrollY.toString();
 
-        // Apply fixed position in a way that doesn't jump
-        document.body.style.overflow = 'hidden';
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${scrollY}px`;
-        document.body.style.width = '100%';
+        // Use requestAnimationFrame to ensure smooth transition
+        requestAnimationFrame(() => {
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100vw';
+            document.body.style.overflow = 'hidden';
+        });
 
         // Show popup
         elements.popupOverlay.classList.add('active');
@@ -373,18 +375,20 @@
     function closeDayPopup() {
         const scrollY = parseInt(document.body.dataset.scrollY || '0');
 
-        // Hide popup first
+        // Hide popup
         elements.popupOverlay.classList.remove('active');
         elements.popup.classList.remove('active');
 
-        // Restore scroll position BEFORE removing fixed position
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
+        // Use requestAnimationFrame for smooth restoration
+        requestAnimationFrame(() => {
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
 
-        // Scroll to saved position
-        window.scrollTo(0, scrollY);
+            // Restore scroll
+            window.scrollTo(0, scrollY);
+        });
 
         state.currentDay = null;
     }
