@@ -696,6 +696,12 @@ body.no-scroll {
 .import-export-buttons .btn {
     flex: 1;
     min-width: 0;
+    padding: 12px 16px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
 }
 
 .emoji-input {
