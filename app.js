@@ -444,9 +444,23 @@
         elements.settingsOverlay.classList.add('active');
         elements.settingsPanel.classList.add('active');
         renderThemeOptions();
+        renderYearOptions();
 
         // Set current year in dropdown
         elements.yearSelect.value = state.selectedYear.toString();
+    }
+
+    function renderYearOptions() {
+        const currentYear = new Date().getFullYear();
+        elements.yearSelect.innerHTML = '';
+
+        // Add current year and a few past years
+        for (let year = currentYear; year >= currentYear - 5; year--) {
+            const option = document.createElement('option');
+            option.value = year.toString();
+            option.textContent = year.toString();
+            elements.yearSelect.appendChild(option);
+        }
     }
 
     function closeSettings() {
