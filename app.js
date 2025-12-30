@@ -189,29 +189,6 @@
         document.querySelectorAll('.theme-option').forEach(el => {
             el.classList.toggle('selected', el.dataset.theme === themeName);
         });
-
-        // Update meta theme color for PWA
-        const themeColors = {
-            sakura: '#FFF8F0',
-            mint: '#F0FFF4',
-            lavender: '#F8F4FF',
-            honey: '#FFFBF0'
-        };
-        const themeColor = themeColors[themeName];
-
-        // Update all theme color meta tags
-        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-        if (themeColorMeta) {
-            themeColorMeta.setAttribute('content', themeColor);
-        }
-
-        const appleStatusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
-        if (appleStatusBarMeta) {
-            appleStatusBarMeta.setAttribute('content', themeColor);
-        }
-
-        // Also set on html element to persist through scroll lock
-        document.documentElement.style.backgroundColor = themeColor;
     }
 
     function renderThemeOptions() {
