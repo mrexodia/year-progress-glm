@@ -579,7 +579,6 @@
         // Event listeners
         elements.popupClose.addEventListener('click', closeDayPopup);
         elements.popupOverlay.addEventListener('click', closeDayPopup);
-        elements.clearBtn.addEventListener('click', clearMark);
 
         // Instant save on note input
         elements.noteInput.addEventListener('input', instantSave);
