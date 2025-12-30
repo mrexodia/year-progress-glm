@@ -378,10 +378,10 @@
             option.style.background = color;
             option.dataset.color = color;
             option.addEventListener('click', () => {
-                // Check if this color was already selected before this click
-                const wasSelected = selectedColor === color;
+                // Check if this option is currently selected by looking at the class
+                const isCurrentlySelected = option.classList.contains('selected');
 
-                if (wasSelected) {
+                if (isCurrentlySelected) {
                     // Deselect - remove all selections
                     container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
                 } else {
@@ -405,10 +405,10 @@
             option.textContent = emoji;
             option.dataset.emoji = emoji;
             option.addEventListener('click', () => {
-                // Check if this emoji was already selected before this click
-                const wasSelected = selectedEmoji === emoji;
+                // Check if this option is currently selected by looking at the class
+                const isCurrentlySelected = option.classList.contains('selected');
 
-                if (wasSelected) {
+                if (isCurrentlySelected) {
                     // Deselect - remove all selections
                     container.querySelectorAll('.emoji-option').forEach(el => el.classList.remove('selected'));
                 } else {
