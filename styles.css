@@ -233,14 +233,14 @@ body.no-scroll {
 
 .month-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(28px, 1fr));
-    gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
+    gap: 10px;
     justify-items: center;
 }
 
 .day-dot {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: var(--dot-empty);
     cursor: pointer;
@@ -281,8 +281,9 @@ body.no-scroll {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1;
+    padding: 2px;
 }
 
 .day-dot.has-note::before {
@@ -743,17 +744,17 @@ body.no-scroll {
     }
 
     .month-grid {
-        grid-template-columns: repeat(auto-fill, minmax(22px, 1fr));
-        gap: 6px;
+        grid-template-columns: repeat(auto-fill, minmax(26px, 1fr));
+        gap: 8px;
     }
 
     .day-dot {
-        width: 22px;
-        height: 22px;
+        width: 26px;
+        height: 26px;
     }
 
     .day-dot.marked::after {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .settings-panel {
