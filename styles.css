@@ -218,8 +218,8 @@ body.no-scroll {
 }
 
 .day-dot {
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background: var(--dot-empty);
     cursor: pointer;
@@ -248,18 +248,18 @@ body.no-scroll {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 8px;
+    font-size: 11px;
     line-height: 1;
 }
 
 .day-dot.has-note::before {
     content: '';
     position: absolute;
-    bottom: -2px;
+    bottom: -3px;
     left: 50%;
     transform: translateX(-50%);
-    width: 3px;
-    height: 3px;
+    width: 4px;
+    height: 4px;
     background: var(--text-color);
     border-radius: 50%;
     opacity: 0.5;
@@ -664,18 +664,17 @@ body.no-scroll {
         font-size: 16px;
     }
 
-    .days-row {
-        gap: 3px 2px;
+    .year-grid {
+        gap: 5px 4px;
     }
 
     .day-dot {
-        width: 9px;
-        height: 9px;
+        width: 12px;
+        height: 12px;
     }
 
-    .month-label {
-        width: 32px;
-        font-size: 10px;
+    .day-dot.marked::after {
+        font-size: 9px;
     }
 
     .settings-panel {
