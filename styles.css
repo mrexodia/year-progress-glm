@@ -266,8 +266,9 @@ body.no-scroll {
 
 .day-dot.today {
     background: var(--dot-today);
-    box-shadow: 0 0 0 2px var(--bg-color), 0 0 12px var(--dot-today-glow);
-    animation: pulse 2s ease-in-out infinite;
+    box-shadow: 0 0 0 3px var(--bg-color), 0 0 0 5px var(--dot-today), 0 0 20px var(--dot-today-glow);
+    animation: pulse 1.5s ease-in-out infinite;
+    z-index: 10;
 }
 
 .day-dot.marked {
@@ -734,10 +735,12 @@ body.no-scroll {
 /* ===== Animations ===== */
 @keyframes pulse {
     0%, 100% {
-        box-shadow: 0 0 0 2px var(--bg-color), 0 0 12px var(--dot-today-glow);
+        box-shadow: 0 0 0 3px var(--bg-color), 0 0 0 5px var(--dot-today), 0 0 20px var(--dot-today-glow);
+        transform: scale(1);
     }
     50% {
-        box-shadow: 0 0 0 2px var(--bg-color), 0 0 20px var(--dot-today-glow);
+        box-shadow: 0 0 0 3px var(--bg-color), 0 0 0 7px var(--dot-today), 0 0 30px var(--dot-today-glow);
+        transform: scale(1.1);
     }
 }
 
