@@ -428,15 +428,22 @@
         const dateKey = getDateKey(state.currentDay);
         const selectedColor = elements.colorOptions.querySelector('.color-option.selected');
         const selectedEmoji = elements.emojiOptions.querySelector('.emoji-option.selected');
-        const note = elements.noteInput.value.trim();
+        const noteValue = elements.noteInput.value.trim();
 
-        const mark = {
-            color: selectedColor ? selectedColor.dataset.color : null,
-            emoji: selectedEmoji ? selectedEmoji.dataset.emoji : null,
-            note: note || null
-        };
+        // Build mark object
+        const mark = {};
 
-        // Remove entry if empty
+        if (selectedColor) {
+            mark.color = selectedColor.dataset.color;
+        }
+        if (selectedEmoji) {
+            mark.emoji = selectedEmoji.dataset.emoji;
+        }
+        if (noteValue) {
+            mark.note = noteValue;
+        }
+
+        // Remove entry if completely empty
         if (!mark.color && !mark.emoji && !mark.note) {
             delete state.marks[dateKey];
         } else {
