@@ -9,9 +9,10 @@
         daysInYear: 0,
         today: 0,
         marks: {},
-        theme: 'sakura',
+        theme: 'lavender',
         currentDay: null,
-        selectedYear: new Date().getFullYear() // User can select different years
+        selectedYear: new Date().getFullYear(),
+        customEmojis: '' // User's custom emojis
     };
 
     // ===== Themes =====
@@ -88,6 +89,7 @@
                 selectedYear: state.selectedYear,
                 marks: state.marks,
                 theme: state.theme,
+                customEmojis: state.customEmojis,
                 lastUpdated: new Date().toISOString()
             };
             localStorage.setItem('yearProgressData', JSON.stringify(data));
@@ -102,8 +104,9 @@
             if (saved) {
                 const data = JSON.parse(saved);
                 state.marks = data.marks || {};
-                state.theme = data.theme || 'sakura';
+                state.theme = data.theme || 'lavender';
                 state.selectedYear = data.selectedYear || new Date().getFullYear();
+                state.customEmojis = data.customEmojis || '';
             }
         } catch (e) {
             console.error('Failed to load:', e);
@@ -432,11 +435,21 @@
         });
     }
 
+    function getEmojis() {
+        // Use custom emojis if available, otherwise use defaults
+        if (state.customEmojis && state.customEmojis.trim()) {
+            return state.customEmojis.trim().split(/\s+/).filter(e => e.length > 0);
+        }
+        return emojis;
+    }
+
     function renderEmojiOptions(selectedEmoji) {
         const container = elements.emojiOptions;
         container.innerHTML = '';
 
-        emojis.forEach(emoji => {
+        const emojiList = getEmojis();
+
+        emojiList.forEach(emoji => {
             const option = document.createElement('div');
             option.className = `emoji-option ${selectedEmoji === emoji ? 'selected' : ''}`;
             option.textContent = emoji;
@@ -553,6 +566,9 @@
         elements.settingsPanel.classList.add('active');
         renderThemeOptions();
         renderYearButtons();
+
+        // Set custom emoji input value
+        elements.emojiInput.value = state.customEmojis || '';
     }
 
     function renderYearButtons() {
@@ -604,6 +620,7 @@
             settingsClose: document.getElementById('settingsClose'),
             themeOptions: document.getElementById('themeOptions'),
             yearButtons: document.getElementById('yearButtons'),
+            emojiInput: document.getElementById('emojiInput'),
             exportBtn: document.getElementById('exportBtn'),
             importBtn: document.getElementById('importBtn'),
             importFile: document.getElementById('importFile')
@@ -639,6 +656,12 @@
         });
 
         // Year selector is now handled by button clicks in renderYearButtons
+
+        // Custom emoji input
+        elements.emojiInput.addEventListener('input', (e) => {
+            state.customEmojis = e.target.value;
+            saveState();
+        });
 
         // Handle viewport resize (keyboard open/close)
         if (window.visualViewport) {

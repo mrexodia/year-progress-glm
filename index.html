@@ -99,9 +99,23 @@
         </div>
 
         <div class="settings-section">
+            <h3>Custom Emojis</h3>
+            <input
+                type="text"
+                class="emoji-input"
+                id="emojiInput"
+                placeholder="Add emojis here..."
+                maxlength="50"
+            >
+            <small class="emoji-hint">Enter emojis separated by spaces</small>
+        </div>
+
+        <div class="settings-section">
             <h3>Data</h3>
-            <button class="btn btn-secondary" id="exportBtn">⬇ Download Backup</button>
-            <button class="btn btn-secondary" id="importBtn">⬆ Restore Backup</button>
+            <div class="import-export-buttons">
+                <button class="btn btn-secondary" id="exportBtn">⬇ Export</button>
+                <button class="btn btn-secondary" id="importBtn">⬆ Import</button>
+            </div>
             <input type="file" id="importFile" accept=".json" style="display: none;">
         </div>
     </div>
