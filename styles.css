@@ -247,6 +247,9 @@ body.no-scroll {
     transition: all 0.15s ease;
     position: relative;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .day-dot.weekend {
@@ -281,9 +284,8 @@ body.no-scroll {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1;
-    margin: -2px;
 }
 
 .day-dot.has-note::before {
@@ -754,7 +756,7 @@ body.no-scroll {
     }
 
     .day-dot.marked::after {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     .settings-panel {
