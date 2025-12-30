@@ -453,12 +453,7 @@
     function getEmojis() {
         // Use custom emojis if set, otherwise use defaults
         if (state.customEmojis && state.customEmojis.trim()) {
-            const cleaned = state.customEmojis.trim()
-                .replace(/\s+/g, ' ') // Remove extra spaces
-                .split('')
-                .filter((char, index, self) => self.indexOf(char) === index) // Remove duplicates
-                .join(' ');
-            return cleaned.split(/\s+/).filter(e => e.length > 0);
+            return state.customEmojis.trim().split(/\s+/).filter(e => e.length > 0);
         }
         return defaultEmojis.split(/\s+/).filter(e => e.length > 0);
     }
@@ -698,13 +693,11 @@
             // Clean up emojis on blur - remove spaces and duplicates
             const value = e.target.value;
             if (value) {
-                const cleaned = value
-                    .replace(/\s+/g, '') // Remove all spaces
-                    .split('')
-                    .filter((char, index, self) => self.indexOf(char) === index) // Remove duplicates
-                    .join('');
-                state.customEmojis = cleaned;
-                e.target.value = cleaned;
+                // Split by spaces/whitespace, filter empty, remove duplicates using Set
+                const emojiList = value.split(/\s+/).filter(e => e.trim().length > 0);
+                const uniqueEmojis = [...new Set(emojiList)].join(' ');
+                state.customEmojis = uniqueEmojis;
+                e.target.value = uniqueEmojis;
                 saveState();
             }
         });
