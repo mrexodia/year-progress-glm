@@ -584,6 +584,25 @@ body.no-scroll {
     letter-spacing: 0.05em;
 }
 
+.year-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+    background: var(--bg-color);
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.year-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
 .theme-options {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

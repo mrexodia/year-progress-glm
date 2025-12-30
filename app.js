@@ -10,7 +10,8 @@
         today: 0,
         marks: {},
         theme: 'sakura',
-        currentDay: null
+        currentDay: null,
+        selectedYear: new Date().getFullYear() // User can select different years
     };
 
     // ===== Themes =====
@@ -47,7 +48,9 @@
     const emojis = ['❤️', '😊', '⭐', '🎉', '😢', '🌟', '💪', '🌸', '☀️', '🌙', '✨', '🎂', '🏖️', '❄️', '🍂'];
 
     // ===== DOM Elements =====
-    let elements = {};
+    let elements = {
+        yearSelect: null // Will be cached
+    };
 
     // ===== Utility Functions =====
     function isLeapYear(year) {
@@ -82,6 +85,7 @@
         try {
             const data = {
                 year: state.year,
+                selectedYear: state.selectedYear,
                 marks: state.marks,
                 theme: state.theme,
                 lastUpdated: new Date().toISOString()
@@ -97,9 +101,9 @@
             const saved = localStorage.getItem('yearProgressData');
             if (saved) {
                 const data = JSON.parse(saved);
-                // Use saved marks and theme, but always use current year
                 state.marks = data.marks || {};
                 state.theme = data.theme || 'sakura';
+                state.selectedYear = data.selectedYear || new Date().getFullYear();
             }
         } catch (e) {
             console.error('Failed to load:', e);
@@ -217,10 +221,25 @@
         const grid = elements.yearGrid;
         grid.innerHTML = '';
 
-        const now = new Date();
-        state.year = now.getFullYear();
+        // Use selected year for display
+        state.year = state.selectedYear;
         state.daysInYear = isLeapYear(state.year) ? 366 : 365;
-        state.today = getDayOfYear(now);
+
+        // Calculate today's position relative to selected year
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const today = getDayOfYear(now);
+
+        // If viewing current year, show actual today. Otherwise, all days are "future"
+        if (state.year === currentYear) {
+            state.today = today;
+        } else if (state.year < currentYear) {
+            // Past year - all days are passed
+            state.today = state.daysInYear + 1;
+        } else {
+            // Future year - no days passed yet
+            state.today = 0;
+        }
 
         elements.yearTitle.textContent = state.year;
         updateProgress();
@@ -425,6 +444,9 @@
         elements.settingsOverlay.classList.add('active');
         elements.settingsPanel.classList.add('active');
         renderThemeOptions();
+
+        // Set current year in dropdown
+        elements.yearSelect.value = state.selectedYear.toString();
     }
 
     function closeSettings() {
@@ -456,6 +478,7 @@
             settingsPanel: document.getElementById('settingsPanel'),
             settingsClose: document.getElementById('settingsClose'),
             themeOptions: document.getElementById('themeOptions'),
+            yearSelect: document.getElementById('yearSelect'),
             exportBtn: document.getElementById('exportBtn'),
             importBtn: document.getElementById('importBtn'),
             importFile: document.getElementById('importFile')
@@ -487,6 +510,13 @@
                 importData(e.target.files[0]);
                 e.target.value = ''; // Reset
             }
+        });
+
+        // Year selector
+        elements.yearSelect.addEventListener('change', (e) => {
+            state.selectedYear = parseInt(e.target.value);
+            saveState();
+            renderGrid();
         });
 
         // Update progress every minute
