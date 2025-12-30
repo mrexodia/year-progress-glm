@@ -1,94 +1,18 @@
-# Year Progress ✨
+# Year Progress
 
-A beautiful Progressive Web App that visualizes your year as a grid of dots. Mark each day with colors, emojis, and notes to create a visual journal of your year.
+Tech stack:
+- [pi](https://shittycodingagent.ai/) by @badlogic
+- [beads](https://github.com/steveyegge/beads) by @steveyegge
 
-## Features
+Someone sent me [this X post](https://x.com/CoachDanGo/status/2005855611112554561), so I figured I would give it a try with Claude Opus 4.5 and GLM 4.7. Initially I had an [interview-style chat](https://claude.ai/share/4520d196-5bdb-45b2-92c8-1b80e987e500) with Claude to plan, then I initialized `beads` with a pi hook in [`.pi/hooks/bd-prime.ts`](.pi/hooks/bd-prime.ts) and duplicated the repo. From there the prompt was:
 
-- 🎨 **Beautiful Design**: Soft pastel themes that spark joy
-- 📍 **Year Grid**: See your entire year at a glance
-- 🎯 **Progress Tracking**: Watch the days fill up
-- 🌈 **Mark Days**: Add colors and emojis to special moments
-- 📝 **Notes**: Capture memories for any day
-- 💾 **Local Storage**: Your data stays on your device
-- 📤 **Backup**: Export your data anytime
-- 🎨 **4 Themes**: Sakura, Mint Dream, Lavender Haze, Honey Morning
-- 📱 **PWA**: Install on your home screen
-- 🌙 **Offline Works**: No internet needed after first load
+> Convert the plan into beads issues and start work. Do not stop until the whole app is compeleted.
 
-## How to Use
+After that I just tried the app and gave feedback until it was in a reasonable state. The app turned into a bit of a journal to get more interactivity. I also tried with Gemini 2.5 Pro, but it was an utter disaster.
 
-### On Your Phone
+## Results
 
-1. **Open the app** in your browser (Safari on iOS, Chrome on Android)
-2. **Add to Home Screen**:
-   - **iOS**: Tap Share → Add to Home Screen
-   - **Android**: Tap menu → Install app / Add to Home Screen
-3. **Open and enjoy!**
-
-### Marking Days
-
-1. **Tap any day** in the grid
-2. **Choose a color** from the palette
-3. **Pick an emoji** (optional)
-4. **Add a note** (optional)
-5. **Tap Save** 
-
-The dot will show your color and emoji. Days with notes have a small dot indicator.
-
-### Settings
-
-Tap the ⚙️ icon in the top right to:
-- **Switch themes** (4 beautiful options)
-- **Download backup** (saves your data)
-- **Restore backup** (load from file)
-
-## Themes
-
-- **🌸 Sakura**: Soft pinks and cream (default)
-- **🌿 Mint Dream**: Fresh mint and sky blue
-- **💜 Lavender Haze**: Dreamy purples
-- **🍯 Honey Morning**: Warm peach and gold
-
-## Data & Privacy
-
-- **Everything is saved locally** on your device
-- **No accounts or sign-up** required
-- **No tracking or analytics**
-- **Your data never leaves your device** unless you export it
-
-### Backup Your Data
-
-1. Open Settings (⚙️)
-2. Tap "Download Backup"
-3. Save the JSON file somewhere safe
-
-### Restore Data
-
-1. Open Settings (⚙️)
-2. Tap "Restore Backup"
-3. Select your backup file
-4. Confirm to restore
-
-## Tips
-
-- **The current day** has a gentle glow
-- **Past days** are filled in
-- **Future days** are dim
-- **Tap a marked day** to edit or view it
-- **Export regularly** to keep your memories safe
-
-## Browser Support
-
-Works on any modern browser:
-- ✅ iOS Safari 12+
-- ✅ Chrome/Edge (Android & Desktop)
-- ✅ Firefox
-- ✅ Samsung Internet
-
-## Made with Love
-
-A personal project for celebrating the passage of time. May your year be filled with beautiful moments! 🌸
-
----
-
-*Year Progress • Version 1.0 • 2026*
+|[Opus 4.5](https://github.com/mrexodia/year-progress-claude)|[GLM 4.7](https://github.com/mrexodia/year-progress-glm)|
+|-|-|
+|<img width="1206" height="2436" alt="image" src="https://github.com/user-attachments/assets/839344db-c785-46c2-8d00-49115b482a55" />|<img width="1206" height="2436" alt="image" src="https://github.com/user-attachments/assets/ea443472-d857-4d81-9ba0-e88de15ab184" />|
+|Cost: $15.39, [transcript](https://htmlpreview.github.io/?https://github.com/mrexodia/year-progress-claude/blob/master/session.html)|Cost: $8.34, [transcript](https://htmlpreview.github.io/?https://github.com/mrexodia/year-progress-glm/blob/master/session.html)|
