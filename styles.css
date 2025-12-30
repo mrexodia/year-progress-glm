@@ -283,7 +283,7 @@ body.no-scroll {
     transform: translate(-50%, -50%);
     font-size: 18px;
     line-height: 1;
-    padding: 2px;
+    margin: -2px;
 }
 
 .day-dot.has-note::before {
