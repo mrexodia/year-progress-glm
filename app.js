@@ -443,6 +443,9 @@
             mark.note = noteValue;
         }
 
+        // Debug: log what we're saving
+        console.log('Saving mark for day', state.currentDay, ':', mark);
+
         // Remove entry if completely empty
         if (!mark.color && !mark.emoji && !mark.note) {
             delete state.marks[dateKey];

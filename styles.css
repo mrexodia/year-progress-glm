@@ -477,6 +477,7 @@ body.no-scroll {
     background: var(--bg-color);
     resize: none;
     transition: border-color 0.2s ease;
+    line-height: 1.4;
 }
 
 .note-input:focus {
