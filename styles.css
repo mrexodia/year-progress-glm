@@ -283,14 +283,14 @@ body.no-scroll {
 .day-dot.has-note::before {
     content: '';
     position: absolute;
-    bottom: -3px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 4px;
+    bottom: 1px;
+    right: 1px;
+    width: 5px;
+    height: 5px;
     background: var(--text-color);
     border-radius: 50%;
-    opacity: 0.5;
+    opacity: 0.6;
+    border: 1px solid var(--bg-color);
 }
 
 .day-dot:hover {

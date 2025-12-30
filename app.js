@@ -380,6 +380,7 @@
             option.addEventListener('click', () => {
                 container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
                 option.classList.add('selected');
+                instantSave();
             });
             container.appendChild(option);
         });
@@ -397,12 +398,13 @@
             option.addEventListener('click', () => {
                 container.querySelectorAll('.emoji-option').forEach(el => el.classList.remove('selected'));
                 option.classList.add('selected');
+                instantSave();
             });
             container.appendChild(option);
         });
     }
 
-    function saveMark() {
+    function instantSave() {
         if (!state.currentDay) return;
 
         const dateKey = getDateKey(state.currentDay);
@@ -425,7 +427,9 @@
 
         saveState();
         renderGrid();
-        closeDayPopup();
+
+        // Update note indicator
+        elements.hasNoteIndicator.style.display = mark.note ? 'inline' : 'none';
     }
 
     function clearMark() {
@@ -436,7 +440,14 @@
 
         saveState();
         renderGrid();
-        closeDayPopup();
+
+        // Clear selections
+        elements.colorOptions.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
+        elements.emojiOptions.querySelectorAll('.emoji-option').forEach(el => el.classList.remove('selected'));
+        elements.noteInput.value = '';
+        elements.hasNoteIndicator.style.display = 'none';
+
+        instantSave();
     }
 
     // ===== Settings Functions =====
@@ -485,7 +496,6 @@
             emojiOptions: document.getElementById('emojiOptions'),
             noteInput: document.getElementById('noteInput'),
             hasNoteIndicator: document.getElementById('hasNoteIndicator'),
-            saveBtn: document.getElementById('saveBtn'),
             clearBtn: document.getElementById('clearBtn'),
             settingsBtn: document.getElementById('settingsBtn'),
             settingsOverlay: document.getElementById('settingsOverlay'),
@@ -510,8 +520,10 @@
         // Event listeners
         elements.popupClose.addEventListener('click', closeDayPopup);
         elements.popupOverlay.addEventListener('click', closeDayPopup);
-        elements.saveBtn.addEventListener('click', saveMark);
         elements.clearBtn.addEventListener('click', clearMark);
+
+        // Instant save on note input
+        elements.noteInput.addEventListener('input', instantSave);
 
         elements.settingsBtn.addEventListener('click', openSettings);
         elements.settingsClose.addEventListener('click', closeSettings);
