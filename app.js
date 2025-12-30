@@ -355,33 +355,35 @@
         // Render emoji options
         renderEmojiOptions(mark.emoji);
 
-        // Prevent body scroll and save scroll position
-        document.body.dataset.scrollY = window.scrollY.toString();
+        // Prevent body scroll - save scroll position BEFORE making changes
+        const scrollY = window.scrollY;
+        document.body.dataset.scrollY = scrollY.toString();
+
+        // Apply fixed position in a way that doesn't jump
+        document.body.style.overflow = 'hidden';
         document.body.style.position = 'fixed';
-        document.body.style.top = `-${window.scrollY}px`;
+        document.body.style.top = `-${scrollY}px`;
         document.body.style.width = '100%';
-        document.body.classList.add('no-scroll');
 
         // Show popup
         elements.popupOverlay.classList.add('active');
         elements.popup.classList.add('active');
-
-        // Ensure popup stays in view when keyboard appears/disappears
-        setTimeout(() => {
-            elements.popup.scrollTop = 0;
-        }, 100);
     }
 
     function closeDayPopup() {
         const scrollY = parseInt(document.body.dataset.scrollY || '0');
+
+        // Hide popup first
         elements.popupOverlay.classList.remove('active');
         elements.popup.classList.remove('active');
 
-        // Restore scroll position
-        document.body.classList.remove('no-scroll');
+        // Restore scroll position BEFORE removing fixed position
+        document.body.style.overflow = '';
         document.body.style.position = '';
         document.body.style.top = '';
         document.body.style.width = '';
+
+        // Scroll to saved position
         window.scrollTo(0, scrollY);
 
         state.currentDay = null;
