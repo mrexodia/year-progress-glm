@@ -223,7 +223,28 @@
         elements.yearTitle.textContent = state.year;
         updateProgress();
 
+        let currentMonth = -1;
+
         for (let day = 1; day <= state.daysInYear; day++) {
+            const date = new Date(state.year, 0, day);
+            const month = date.getMonth();
+
+            // Add month label at the start of each month
+            if (month !== currentMonth) {
+                const monthLabel = document.createElement('div');
+                monthLabel.className = 'month-label';
+                monthLabel.textContent = date.toLocaleDateString('en-US', { month: 'short' });
+                monthLabel.style.gridColumn = '1 / -1';
+                monthLabel.style.textAlign = 'left';
+                monthLabel.style.fontSize = '12px';
+                monthLabel.style.fontWeight = '600';
+                monthLabel.style.color = 'var(--text-light)';
+                monthLabel.style.marginTop = day > 1 ? '8px' : '0';
+                monthLabel.style.padding = '4px 0';
+                grid.appendChild(monthLabel);
+                currentMonth = month;
+            }
+
             const dot = document.createElement('div');
             dot.className = 'day-dot';
             dot.dataset.day = day;
@@ -263,7 +284,7 @@
         const daysRemaining = state.daysInYear - state.today + 1;
         const percentage = ((daysPassed / state.daysInYear) * 100).toFixed(1);
 
-        elements.progressText.textContent = `${daysRemaining} days left · ${percentage}%`;
+        elements.progressText.innerHTML = `<span class="days-highlight">${daysRemaining} days left</span> · ${percentage}%`;
         elements.progressBar.style.width = `${percentage}%`;
     }
 
