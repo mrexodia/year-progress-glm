@@ -426,10 +426,41 @@
         }
 
         saveState();
-        renderGrid();
+        updateCurrentDayDot();
 
         // Update note indicator
         elements.hasNoteIndicator.style.display = mark.note ? 'inline' : 'none';
+    }
+
+    function updateCurrentDayDot() {
+        if (!state.currentDay) return;
+
+        const dateKey = getDateKey(state.currentDay);
+        const dot = document.querySelector(`.day-dot[data-day="${state.currentDay}"]`);
+
+        if (!dot) return;
+
+        // Clear existing mark styles
+        dot.classList.remove('marked', 'has-note');
+        dot.style.removeProperty('--marked-color');
+        dot.style.removeProperty('--marked-emoji');
+
+        // Apply new mark
+        const mark = state.marks[dateKey];
+        if (mark) {
+            if (mark.color || mark.emoji || mark.note) {
+                dot.classList.add('marked');
+                if (mark.color) {
+                    dot.style.setProperty('--marked-color', mark.color);
+                }
+                if (mark.emoji) {
+                    dot.style.setProperty('--marked-emoji', `"${mark.emoji}"`);
+                }
+                if (mark.note) {
+                    dot.classList.add('has-note');
+                }
+            }
+        }
     }
 
     function clearMark() {
@@ -439,7 +470,6 @@
         delete state.marks[dateKey];
 
         saveState();
-        renderGrid();
 
         // Clear selections
         elements.colorOptions.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
@@ -447,7 +477,7 @@
         elements.noteInput.value = '';
         elements.hasNoteIndicator.style.display = 'none';
 
-        instantSave();
+        updateCurrentDayDot();
     }
 
     // ===== Settings Functions =====
