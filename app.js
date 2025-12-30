@@ -250,6 +250,11 @@
         elements.yearTitle.textContent = state.year;
         updateProgress();
 
+        // Scroll to current day after rendering (only for current year)
+        if (state.year === currentYear) {
+            setTimeout(() => scrollToToday(), 100);
+        }
+
         let currentMonth = -1;
         let monthSection = null;
         let monthGrid = null;
@@ -343,6 +348,13 @@
             return mark && (mark.color || mark.emoji || mark.note);
         });
         elements.emptyState.style.display = hasMarks ? 'none' : 'block';
+    }
+
+    function scrollToToday() {
+        const todayDot = document.querySelector('.day-dot.today');
+        if (todayDot) {
+            todayDot.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     }
 
     // ===== Popup Functions =====
@@ -441,7 +453,12 @@
     function getEmojis() {
         // Use custom emojis if set, otherwise use defaults
         if (state.customEmojis && state.customEmojis.trim()) {
-            return state.customEmojis.trim().split(/\s+/).filter(e => e.length > 0);
+            const cleaned = state.customEmojis.trim()
+                .replace(/\s+/g, ' ') // Remove extra spaces
+                .split('')
+                .filter((char, index, self) => self.indexOf(char) === index) // Remove duplicates
+                .join(' ');
+            return cleaned.split(/\s+/).filter(e => e.length > 0);
         }
         return defaultEmojis.split(/\s+/).filter(e => e.length > 0);
     }
@@ -675,6 +692,21 @@
         elements.emojiInput.addEventListener('input', (e) => {
             state.customEmojis = e.target.value;
             saveState();
+        });
+
+        elements.emojiInput.addEventListener('blur', (e) => {
+            // Clean up emojis on blur - remove spaces and duplicates
+            const value = e.target.value;
+            if (value) {
+                const cleaned = value
+                    .replace(/\s+/g, '') // Remove all spaces
+                    .split('')
+                    .filter((char, index, self) => self.indexOf(char) === index) // Remove duplicates
+                    .join('');
+                state.customEmojis = cleaned;
+                e.target.value = cleaned;
+                saveState();
+            }
         });
 
         // Handle viewport resize (keyboard open/close)
