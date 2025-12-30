@@ -231,24 +231,19 @@
             const date = new Date(state.year, 0, day);
             const month = date.getMonth();
 
-            // Create new row for each month
+            // Create new column for each month
             if (month !== currentMonth) {
-                // Create month row container
+                // Create month column container
                 monthRow = document.createElement('div');
                 monthRow.className = 'month-row';
 
-                // Add month label
+                // Add month label on top
                 const monthLabel = document.createElement('div');
                 monthLabel.className = 'month-label';
                 monthLabel.textContent = date.toLocaleDateString('en-US', { month: 'short' });
                 monthRow.appendChild(monthLabel);
 
-                // Add divider
-                const divider = document.createElement('div');
-                divider.className = 'month-divider';
-                monthRow.appendChild(divider);
-
-                // Create days row
+                // Create days column
                 daysRow = document.createElement('div');
                 daysRow.className = 'days-row';
                 monthRow.appendChild(daysRow);

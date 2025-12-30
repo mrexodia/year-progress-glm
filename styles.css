@@ -194,42 +194,36 @@ body.no-scroll {
 
 .year-grid {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 0;
     padding: 4px 0;
+    align-content: flex-start;
 }
 
 .month-row {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 2px 0;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 8px 0 0;
+    border-right: 1px solid var(--border-color);
+    margin-right: 8px;
+    padding-right: 12px;
 }
 
 .month-label {
-    width: 38px;
     font-size: 11px;
     font-weight: 600;
     color: var(--text-light);
-    text-align: right;
-    flex-shrink: 0;
-    padding-right: 4px;
-}
-
-.month-divider {
-    width: 1px;
-    height: 20px;
-    background: var(--border-color);
-    margin-right: 4px;
-    flex-shrink: 0;
+    text-align: center;
+    margin-bottom: 4px;
 }
 
 .days-row {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px 3px;
+    grid-template-rows: repeat(7, 1fr);
+    gap: 3px;
     flex: 1;
-    min-width: 0;
 }
 
 .day-dot {
