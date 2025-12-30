@@ -340,6 +340,22 @@
     }
 
     // ===== Popup Functions =====
+    // Visual Viewport handling for iOS keyboard
+    let scrollY = 0;
+
+    function adjustForKeyboard() {
+        if (window.visualViewport && elements.popup.classList.contains('active')) {
+            const viewportHeight = window.visualViewport.height;
+            elements.popup.style.maxHeight = `${viewportHeight * 0.85}px`;
+
+            // Scroll focused input into view if needed
+            const activeEl = document.activeElement;
+            if (activeEl && (activeEl.tagName === 'TEXTAREA' || activeEl.tagName === 'INPUT')) {
+                activeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    }
+
     function openDayPopup(day) {
         state.currentDay = day;
         const dateKey = getDateKey(day);
@@ -355,13 +371,19 @@
         // Render emoji options
         renderEmojiOptions(mark.emoji);
 
-        // Lock scroll on documentElement to prevent jump
-        document.documentElement.style.overflow = 'hidden';
+        // Lock body scroll - save position first
+        scrollY = window.scrollY;
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.width = '100%';
         document.body.style.overflow = 'hidden';
 
         // Show popup
         elements.popupOverlay.classList.add('active');
         elements.popup.classList.add('active');
+
+        // Adjust for keyboard
+        adjustForKeyboard();
     }
 
     function closeDayPopup() {
@@ -369,19 +391,18 @@
         elements.popupOverlay.classList.remove('active');
         elements.popup.classList.remove('active');
 
-        // Unlock scroll
-        document.documentElement.style.overflow = '';
+        // Restore body scroll
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
         document.body.style.overflow = '';
+        window.scrollTo(0, scrollY);
 
         state.currentDay = null;
     }
 
     function handleViewportResize() {
-        // When keyboard opens/closes, ensure popup stays at bottom
-        if (elements.popup.classList.contains('active')) {
-            elements.popup.style.top = 'auto';
-            elements.popup.style.transform = elements.popup.classList.contains('active') ? 'translateY(0)' : 'translateY(100%)';
-        }
+        adjustForKeyboard();
     }
 
     function renderColorOptions(selectedColor) {
@@ -620,6 +641,10 @@
         });
 
         // Handle viewport resize (keyboard open/close)
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', handleViewportResize);
+            window.visualViewport.addEventListener('scroll', handleViewportResize);
+        }
         window.addEventListener('resize', handleViewportResize);
         window.addEventListener('orientationchange', handleViewportResize);
 

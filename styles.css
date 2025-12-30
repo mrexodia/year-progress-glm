@@ -330,7 +330,7 @@ body.no-scroll {
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: -100vh;
     background: rgba(0, 0, 0, 0.4);
     z-index: 1000;
     opacity: 0;
@@ -354,10 +354,17 @@ body.no-scroll {
     z-index: 1001;
     transform: translateY(100%);
     transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-    max-height: 85vh;
+    max-height: 85dvh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     will-change: transform;
+}
+
+/* Fallback for browsers without dvh support */
+@supports not (height: 1dvh) {
+    .popup {
+        max-height: 85vh;
+    }
 }
 
 .popup.active {
@@ -485,6 +492,13 @@ body.no-scroll {
 .note-input:focus {
     outline: none;
     border-color: var(--primary-color);
+}
+
+/* Prevent iOS zoom on focus */
+@supports (-webkit-touch-callout: none) {
+    .note-input {
+        font-size: 16px;
+    }
 }
 
 .popup-actions {
