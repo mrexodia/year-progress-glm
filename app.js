@@ -378,12 +378,14 @@
             option.style.background = color;
             option.dataset.color = color;
             option.addEventListener('click', () => {
-                const isSelected = option.classList.contains('selected');
-                if (isSelected) {
-                    // Deselect if already selected
-                    option.classList.remove('selected');
+                // Check if this color was already selected before this click
+                const wasSelected = selectedColor === color;
+
+                if (wasSelected) {
+                    // Deselect - remove all selections
+                    container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
                 } else {
-                    // Clear all selections and select this one
+                    // Select this color, deselect others
                     container.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
                     option.classList.add('selected');
                 }
@@ -403,12 +405,14 @@
             option.textContent = emoji;
             option.dataset.emoji = emoji;
             option.addEventListener('click', () => {
-                const isSelected = option.classList.contains('selected');
-                if (isSelected) {
-                    // Deselect if already selected
-                    option.classList.remove('selected');
+                // Check if this emoji was already selected before this click
+                const wasSelected = selectedEmoji === emoji;
+
+                if (wasSelected) {
+                    // Deselect - remove all selections
+                    container.querySelectorAll('.emoji-option').forEach(el => el.classList.remove('selected'));
                 } else {
-                    // Clear all selections and select this one
+                    // Select this emoji, deselect others
                     container.querySelectorAll('.emoji-option').forEach(el => el.classList.remove('selected'));
                     option.classList.add('selected');
                 }
