@@ -355,12 +355,9 @@
         // Render emoji options
         renderEmojiOptions(mark.emoji);
 
-        // Save scroll position
-        const scrollY = window.scrollY;
-        document.body.dataset.scrollY = scrollY.toString();
-
-        // Lock scroll
-        document.body.classList.add('no-scroll');
+        // Lock scroll on documentElement to prevent jump
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
 
         // Show popup
         elements.popupOverlay.classList.add('active');
@@ -373,13 +370,8 @@
         elements.popup.classList.remove('active');
 
         // Unlock scroll
-        document.body.classList.remove('no-scroll');
-
-        // Restore scroll position
-        const scrollY = parseInt(document.body.dataset.scrollY || '0');
-        if (scrollY > 0) {
-            window.scrollTo(0, scrollY);
-        }
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
 
         state.currentDay = null;
     }
